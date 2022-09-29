@@ -9,9 +9,9 @@ $fn=200;
 screwhole=5;     //fan screw hole diameter (5)
 holespacing=7.5; // screw hole distance from the edge (7.5)
 fan=140;              //fan size (must be bigger than filterhole)
-filterhole=115;     //HEPA filter hole diameter
+filterhole=116;     //HEPA filter hole diameter
 thickness=2;  //Thickness of plastic layer (1.5)
-insert=10;          //Length of insert into filter (10)
+insert=8;          //Length of insert into filter (10)
 
 //Do not adjust anything below here
 
@@ -23,18 +23,18 @@ difference(){
 		translate([0,0,0])
 			cube([fan,fan,thickness]);
 		//taper to filter insert
-		translate([fan/2,fan/2,0])  
+		translate([fan/2,fan/2,thickness])  
 			cylinder(h=cone,d1=fan,d2=filterhole);
 		//filter insert
 		translate([fan/2,fan/2,cone])  
-			cylinder(h=insert,d=filterhole);
+			cylinder(h=insert+thickness,d=filterhole);
 	}
 	//taper to filter insert
 	translate([fan/2,fan/2,-0.01])  
 		cylinder(h=cone+0.02,d1=fan-4,d2=filterhole-wall);
 	//filter insert
 	translate([fan/2,fan/2,cone-0.01])  
-		cylinder(h=insert+0.02,d=filterhole-wall);
+		cylinder(h=insert+thickness+0.02,d=filterhole-wall);
 	//fan attachment holes
 	translate([holespacing,holespacing,-1])  
 		cylinder(h=thickness+2,d=screwhole);
